@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gallery — Cosmos</title>
+  <meta name="description" content="Screenshots and renders from the Cosmos Minecraft mod." />
+  <link rel="icon" type="image/png" href="assets/img/cosmos.png" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body class="gallery-page">
+
+  <canvas id="starfield"></canvas>
+
+  <header class="news-header">
+    <a class="news-back" href="index.html">Back</a>
+  </header>
+
+  <main class="gallery-main">
+    <h1>Gallery</h1>
+    <div class="gallery-rows" id="galleryRows"></div>
+  </main>
+
+  <div class="gallery-backdrop" id="galleryBackdrop">
+    <button class="gallery-lightbox-close" id="galleryLightboxClose" aria-label="Close">&times;</button>
+    <figure class="gallery-lightbox" id="galleryLightbox">
+      <img id="galleryLightboxImg" src="" alt="" />
+    </figure>
+  </div>
+
+  <script src="js/starfield.js"></script>
+  <script src="js/gallery-data.js"></script>
+  <script src="js/gallery.js"></script>
+</body>
+</html>

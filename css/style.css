@@ -1,0 +1,1435 @@
+/* ---------------------------------------
+   Tokens
+--------------------------------------- */
+:root {
+  --void:        #05060A;
+  --panel:       #0D0F18;
+  --panel-line:  #1B1E2C;
+  --text:        #E8E6E0;
+  --text-dim:    #8B8FA3;
+  --plasma:      #FF6A3D;
+  --plasma-dim:  #7A3320;
+  --cyan:        #5EE6D9;
+
+  --core-glow:            65, 145, 230;
+  --glow-spheromatic:     152, 102, 199;
+  --glow-every-mans-sky:  207, 70, 140;
+  --glow-realio:          227, 33, 36;
+  --glow-mayhem:          249, 134, 4;
+  --glow-trappist:        151, 216, 2;
+  --glow-machine-world:   210, 210, 220;
+
+  --hex-spheromatic:     #9866C7;
+  --hex-every-mans-sky:  #CF468C;
+  --hex-realio:          #E32124;
+  --hex-mayhem:          #F98604;
+  --hex-trappist:        #97D802;
+  --hex-machine-world:   #D2D2DC;
+
+  --font-display: 'Space Mono', 'IBM Plex Mono', ui-monospace, SFMono-Regular, monospace;
+  --font-body:    'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+
+  --mc-green:    #6FCF3C;
+  --spec-min:    #8B8FA3;
+  --spec-mid:    var(--cyan);
+  --spec-rec:    var(--plasma);
+}
+
+/* ---------------------------------------
+   Reset
+--------------------------------------- */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--void);
+  color: var(--text);
+  font-family: var(--font-body);
+  line-height: 1.5;
+  overflow-x: hidden;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+img { max-width: 100%; display: block; }
+
+/* ---------------------------------------
+   Starfield background canvas
+--------------------------------------- */
+#starfield {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  background: radial-gradient(ellipse at 50% -10%, #10131f 0%, var(--void) 60%);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #starfield { display: none; }
+}
+
+/* ---------------------------------------
+   Header
+--------------------------------------- */
+.site-header {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 28px 48px;
+}
+
+/* Hamburger menu (replaces the old brand mark) — pinned flush to
+   the very top-left corner of the page, independent of the
+   header's own padding. */
+.nav-menu {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 100;
+}
+
+.nav-menu-toggle {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: stretch;
+  gap: 5px;
+  width: 44px;
+  height: 40px;
+  padding: 0 11px;
+  background: var(--panel);
+  border: 1px solid var(--panel-line);
+  border-top: none;
+  border-left: none;
+  border-radius: 0 0 10px 0;
+  cursor: pointer;
+  transition: border-color 0.2s ease, background-color 0.2s ease;
+}
+
+.nav-menu-toggle:hover,
+.nav-menu-toggle:focus-visible {
+  border-color: var(--plasma);
+  background: rgba(255, 106, 61, 0.08);
+}
+
+.nav-menu-toggle span {
+  display: block;
+  height: 2px;
+  width: 100%;
+  background: var(--text);
+  border-radius: 2px;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.nav-menu-toggle.is-active span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.nav-menu-toggle.is-active span:nth-child(2) { opacity: 0; }
+.nav-menu-toggle.is-active span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+.nav-menu-dropdown {
+  position: absolute;
+  top: calc(100% + 10px);
+  left: 0;
+  z-index: 30;
+  min-width: 240px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  background: var(--panel);
+  border: 1px solid var(--panel-line);
+  border-radius: 10px;
+  padding: 10px;
+  opacity: 0;
+  transform: translateY(-8px);
+  pointer-events: none;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.55);
+}
+
+.nav-menu-dropdown.is-open {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.nav-menu-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  background: none;
+  border: none;
+  border-radius: 6px;
+  padding: 12px 16px;
+  font-family: var(--font-body);
+  font-size: 14px;
+  color: var(--text-dim);
+  text-align: left;
+  cursor: pointer;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.nav-menu-item:hover,
+.nav-menu-item:focus-visible {
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--text);
+}
+
+#navMenuDiscord:hover,
+#navMenuDiscord:focus-visible {
+  outline: 1px solid #5865F2;
+  outline-offset: -1px;
+}
+
+.nav-menu-item[href="news.html"]:hover,
+.nav-menu-item[href="news.html"]:focus-visible {
+  outline: 1px solid #E33636;
+  outline-offset: -1px;
+}
+
+.nav-menu-item[href="credits.html"]:hover,
+.nav-menu-item[href="credits.html"]:focus-visible {
+  outline: 1px solid #FF6A3D;
+  outline-offset: -1px;
+}
+
+.nav-menu-item img {
+  width: 18px;
+  height: 18px;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nav-menu-toggle span,
+  .nav-menu-dropdown {
+    transition: none;
+  }
+}
+
+.site-nav {
+  display: flex;
+  gap: 32px;
+  font-size: 14px;
+  color: var(--text-dim);
+}
+
+.site-nav a {
+  transition: color 0.2s ease;
+}
+
+.site-nav a:hover,
+.site-nav a:focus-visible {
+  color: var(--text);
+}
+
+.nav-specs,
+.nav-downloads,
+.nav-features,
+.nav-gallery {
+  font-weight: 700;
+  color: var(--text) !important;
+  letter-spacing: 0.06em;
+}
+
+.nav-specs:hover,
+.nav-specs:focus-visible,
+.nav-downloads:hover,
+.nav-downloads:focus-visible,
+.nav-features:hover,
+.nav-features:focus-visible,
+.nav-gallery:hover,
+.nav-gallery:focus-visible {
+  color: var(--cyan) !important;
+}
+
+/* ---------------------------------------
+   Hero / Viewport
+--------------------------------------- */
+main {
+  position: relative;
+  z-index: 5;
+}
+
+.hero {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 20px 24px 96px;
+  gap: 32px;
+}
+
+.hero-text {
+  max-width: 640px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  align-items: center;
+  margin-bottom: 88px;
+}
+
+/* Huge 3D title: layered text-shadow steps build the extruded "depth".
+   Colored to match the cosmos.png core glow, static — no hover state.
+   Flush at the very top of the hero, perfectly centered. */
+.hero-title-3d {
+  width: 100%;
+  margin: 0 auto;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(32px, 5.5vw, 64px);
+  line-height: 1;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+  text-align: center;
+  color: rgb(var(--core-glow));
+  cursor: default;
+  -webkit-text-stroke: 1px rgba(255, 255, 255, 0.06);
+  text-shadow:
+    1px 1px 0 rgba(var(--core-glow), 0.7),
+    2px 2px 0 rgba(var(--core-glow), 0.7),
+    3px 3px 0 rgba(var(--core-glow), 0.7),
+    4px 4px 8px rgba(0, 0, 0, 0.5),
+    0 0 32px rgba(var(--core-glow), 0.5);
+}
+
+.hero-lede {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(20px, 3vw, 28px);
+  letter-spacing: -0.005em;
+  color: rgba(var(--core-glow), 0.6);
+}
+
+.hero-sub-line {
+  font-size: 17px;
+  color: var(--text-dim);
+}
+
+.mc-green {
+  color: #2E7D32;
+  font-weight: 700;
+}
+
+/* ---------------------------------------
+   Orrery: cosmos.png core with orbiting planets
+--------------------------------------- */
+.orrery {
+  position: relative;
+  width: min(680px, 92vw);
+  aspect-ratio: 1 / 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* The central hero image — square, rounded corners, half the old scale */
+.hero-core {
+  position: relative;
+  z-index: 5;
+  width: 15%;
+  aspect-ratio: 1 / 1;
+}
+
+.hero-core-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 25.7%;
+  image-rendering: auto;
+  cursor: pointer;
+  transition: filter 0.25s ease, transform 0.25s ease;
+  transform: scale(1);
+  filter:
+    drop-shadow(0 30px 45px rgba(0, 0, 0, 0.55))
+    drop-shadow(0 0 22px rgba(var(--core-glow), 0.55))
+    drop-shadow(0 0 48px rgba(var(--core-glow), 0.3));
+}
+
+.hero-core:hover .hero-core-image {
+  transform: scale(1.08);
+  filter:
+    drop-shadow(0 34px 50px rgba(0, 0, 0, 0.6))
+    drop-shadow(0 0 32px rgba(var(--core-glow), 0.85))
+    drop-shadow(0 0 70px rgba(var(--core-glow), 0.5));
+}
+
+.hero-core-label {
+  transform: translate(-50%, calc(-50% - 90px));
+}
+
+.hero-core:hover .hero-core-label {
+  opacity: 1;
+  transform: translate(-50%, calc(-50% - 98px));
+}
+
+/* Dashed orbit rings, nearest to farthest */
+.orbit-ring {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  border: 1px dashed var(--panel-line);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 0.55;
+}
+
+.orbit-ring--1 { width: 46%; height: 46%; }
+.orbit-ring--2 { width: 62%; height: 62%; }
+.orbit-ring--3 { width: 76%; height: 76%; }
+.orbit-ring--4 { width: 88%; height: 88%; }
+.orbit-ring--5 { width: 100%; height: 100%; }
+.orbit-ring--6 { width: 112%; height: 112%; }
+
+/* Each planet sits on its own orbit radius at a fixed angle (--angle),
+   set inline per-planet in the HTML. The wrapper rotates the whole
+   system slowly; the image counter-rotates so planets don't spin in place. */
+.planet {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 4;
+  width: 1px;
+  height: 1px;
+  transform: translate(-50%, -50%) rotate(var(--angle)) translateX(var(--radius)) rotate(calc(var(--angle) * -1));
+  animation: orbit-drift 140s linear infinite;
+  animation-delay: inherit;
+}
+
+.planet img {
+  display: block;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(1);
+  transform-origin: center;
+  max-width: none;
+  object-fit: cover;
+  width: 64px;
+  height: 64px;
+  border-radius: 25.7%;
+  image-rendering: auto;
+  z-index: 1;
+  cursor: pointer;
+  transition: filter 0.25s ease, transform 0.25s ease;
+  filter:
+    drop-shadow(0 8px 14px rgba(0, 0, 0, 0.5))
+    drop-shadow(0 0 8px rgba(var(--glow), 0.5))
+    drop-shadow(0 0 18px rgba(var(--glow), 0.28));
+}
+
+.planet:hover img {
+  transform: translate(-50%, -50%) scale(1.22);
+  filter:
+    drop-shadow(0 10px 18px rgba(0, 0, 0, 0.55))
+    drop-shadow(0 0 14px rgba(var(--glow), 0.85))
+    drop-shadow(0 0 32px rgba(var(--glow), 0.5));
+}
+
+/* Short local motion-streak trailing directly behind each planet,
+   tangent to its orbit, pointing back along the direction of travel.
+   The parent .planet counter-rotates (rotate(angle)...rotate(-angle))
+   so its children stay visually upright and don't spin — that means
+   this streak needs its own animation to keep tracking the tangent
+   as the planet orbits, rather than inheriting the parent's motion. */
+.planet::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 30px;
+  height: 5px;
+  background: linear-gradient(to left, rgba(var(--glow), 0.55), rgba(var(--glow), 0));
+  border-radius: 999px;
+  transform-origin: right center;
+  transform: translate(-100%, -50%) rotate(calc(var(--angle) - 90deg));
+  animation: trail-streak-spin 140s linear infinite;
+  animation-delay: inherit;
+  filter: blur(1.5px);
+  z-index: 0;
+  pointer-events: none;
+}
+
+@keyframes trail-streak-spin {
+  from { transform: translate(-100%, -50%) rotate(calc(var(--angle) - 90deg)); }
+  to   { transform: translate(-100%, -50%) rotate(calc(var(--angle) + 360deg - 90deg)); }
+}
+
+/* Name label tooltip, shown above each planet on hover. Positioned
+   independent of the planet's own rotation math since it's a sibling
+   of the img inside the same non-rotating .planet box. */
+.planet-label {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, calc(-50% - 46px));
+  white-space: nowrap;
+  font-family: var(--font-display);
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  color: var(--text);
+  background: rgba(13, 15, 24, 0.9);
+  border: 1px solid var(--panel-line);
+  padding: 5px 10px;
+  border-radius: 6px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  z-index: 2;
+}
+
+.planet:hover .planet-label {
+  opacity: 1;
+  transform: translate(-50%, calc(-50% - 54px));
+}
+
+/* Distance order: spheromatic (nearest) -> machine_world (farthest).
+   Radius is a fixed fraction of the orrery's own size (min(680px, 92vw)),
+   matching the orbit-ring diameters above, so planets actually sit on
+   their rings instead of collapsing toward center. All icons share one
+   standard size so nothing looks undersized or soft at render time. */
+.planet--spheromatic     { --radius: calc(min(680px, 92vw) * 0.23); --glow: var(--glow-spheromatic); }
+.planet--every-mans-sky  { --radius: calc(min(680px, 92vw) * 0.31); --glow: var(--glow-every-mans-sky); }
+.planet--realio          { --radius: calc(min(680px, 92vw) * 0.38); --glow: var(--glow-realio); }
+.planet--mayhem          { --radius: calc(min(680px, 92vw) * 0.44); --glow: var(--glow-mayhem); }
+.planet--trappist        { --radius: calc(min(680px, 92vw) * 0.50); --glow: var(--glow-trappist); }
+.planet--machine-world   { --radius: calc(min(680px, 92vw) * 0.56); --glow: var(--glow-machine-world); }
+
+@keyframes orbit-drift {
+  from { transform: translate(-50%, -50%) rotate(var(--angle)) translateX(var(--radius)) rotate(calc(var(--angle) * -1)); }
+  to   { transform: translate(-50%, -50%) rotate(calc(var(--angle) + 360deg)) translateX(var(--radius)) rotate(calc((var(--angle) + 360deg) * -1)); }
+}
+
+/* Orbit trails: a faint arc swept behind each planet, same rotation
+   as the planet it belongs to so it always trails the right spot. */
+.trail {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 3;
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+  animation: trail-drift 140s linear infinite;
+  overflow: visible;
+}
+
+.trail path {
+  fill: none;
+  stroke-width: 2.5;
+  stroke-linecap: round;
+}
+
+.trail--spheromatic     { width: 46%;  height: 46%; }
+.trail--every-mans-sky  { width: 62%;  height: 62%; }
+.trail--realio          { width: 76%;  height: 76%; }
+.trail--mayhem          { width: 88%;  height: 88%; }
+.trail--trappist        { width: 100%; height: 100%; }
+.trail--machine-world   { width: 112%; height: 112%; }
+
+@keyframes trail-drift {
+  from { transform: translate(-50%, -50%) rotate(0deg); }
+  to   { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .trail { animation: none; }
+}
+
+@media (max-width: 640px) {
+  .trail--trappist,
+  .trail--machine-world { display: none; }
+}
+
+.viewport-caption {
+  position: absolute;
+  bottom: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: var(--font-display);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  color: var(--text-dim);
+  white-space: nowrap;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .planet { animation: none; }
+}
+
+@media (max-width: 640px) {
+  .planet--trappist img,
+  .planet--machine-world img { display: none; }
+}
+
+/* ---------------------------------------
+   Features
+--------------------------------------- */
+.features {
+  padding: 32px 48px 96px;
+  max-width: 1080px;
+  margin: 0 auto;
+}
+
+.features h2 {
+  font-family: var(--font-display);
+  font-size: 22px;
+  text-align: center;
+  margin-bottom: 40px;
+  color: var(--text);
+  letter-spacing: 0.02em;
+}
+
+.feature-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+}
+
+.feature-card {
+  background: var(--panel);
+  border: 1px solid var(--panel-line);
+  border-radius: 10px;
+  padding: 24px 22px;
+  transition: border-color 0.2s ease, transform 0.2s ease;
+}
+
+.feature-card:hover {
+  border-color: var(--plasma-dim);
+  transform: translateY(-2px);
+}
+
+.feature-card h3 {
+  font-size: 16px;
+  margin-bottom: 8px;
+  color: var(--text);
+}
+
+.feature-card p {
+  font-size: 14px;
+  color: var(--text-dim);
+}
+
+/* ---------------------------------------
+   Specs — Minecraft-style requirement tiers
+--------------------------------------- */
+.specs {
+  padding: 32px 48px 96px;
+  max-width: 1080px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.specs h2 {
+  font-family: var(--font-display);
+  font-size: 22px;
+  margin-bottom: 14px;
+  letter-spacing: 0.02em;
+}
+
+.specs-note {
+  color: var(--text-dim);
+  font-size: 13px;
+  max-width: 640px;
+  margin: 0 auto 40px;
+  line-height: 1.6;
+}
+
+.specs-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 20px;
+  text-align: left;
+}
+
+.specs-card {
+  background: var(--panel);
+  border: 1px solid var(--panel-line);
+  border-top: 3px solid var(--spec-min);
+  border-radius: 10px;
+  padding: 24px 22px;
+  transition: border-color 0.2s ease, transform 0.2s ease;
+}
+
+.specs-card--mid { border-top-color: var(--spec-mid); }
+.specs-card--rec { border-top-color: var(--spec-rec); }
+
+.specs-card:hover {
+  transform: translateY(-2px);
+}
+
+.specs-card h3 {
+  font-family: var(--font-display);
+  font-size: 16px;
+  letter-spacing: 0.04em;
+  margin-bottom: 4px;
+}
+
+.specs-card--min h3 { color: var(--spec-min); }
+.specs-card--mid h3 { color: var(--spec-mid); }
+.specs-card--rec h3 { color: var(--spec-rec); }
+
+.specs-fps {
+  font-family: var(--font-display);
+  font-size: 13px;
+  color: var(--text-dim);
+  margin-bottom: 18px;
+}
+
+.specs-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 0;
+  border-top: 1px solid var(--panel-line);
+  font-size: 14px;
+}
+
+.specs-row:first-child { border-top: none; }
+
+.specs-row dt {
+  color: var(--text-dim);
+  font-family: var(--font-display);
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.specs-row dd {
+  font-weight: 700;
+}
+
+/* ---------------------------------------
+   Footer
+--------------------------------------- */
+.site-footer {
+  position: relative;
+  z-index: 5;
+  text-align: center;
+  padding: 24px;
+  font-size: 12px;
+  color: var(--text-dim);
+  border-top: 1px solid var(--panel-line);
+}
+
+/* ---------------------------------------
+   Addon info panel — opens on planet click
+--------------------------------------- */
+.addon-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: rgba(5, 6, 10, 0.6);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease;
+}
+
+.addon-backdrop.is-open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.addon-panel {
+  --panel-color: var(--cyan);
+  --panel-glow: 94, 230, 217;
+  position: relative;
+  z-index: 51;
+  width: min(420px, 88vw);
+  max-height: calc(100vh - 48px);
+  overflow-y: auto;
+  background: var(--panel);
+  border: 1px solid var(--panel-color);
+  border-radius: 14px;
+  padding: 32px 28px 28px;
+  transform: scale(0.94);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease, transform 0.25s ease;
+  box-shadow:
+    0 0 0 1px rgba(var(--panel-glow), 0.3),
+    0 0 30px rgba(var(--panel-glow), 0.45),
+    0 0 70px rgba(var(--panel-glow), 0.25),
+    0 20px 60px rgba(0, 0, 0, 0.6);
+}
+
+.addon-panel.is-open {
+  opacity: 1;
+  transform: scale(1);
+  pointer-events: auto;
+}
+
+.addon-panel-close {
+  position: absolute;
+  top: 14px;
+  right: 16px;
+  background: none;
+  border: none;
+  color: var(--text-dim);
+  font-size: 22px;
+  line-height: 1;
+  cursor: pointer;
+  padding: 4px 8px;
+  transition: color 0.2s ease;
+}
+
+.addon-panel-close:hover,
+.addon-panel-close:focus-visible {
+  color: var(--text);
+}
+
+.addon-panel-name {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 24px;
+  letter-spacing: 0.01em;
+  margin-bottom: 22px;
+  padding: 0 28px;
+  text-align: center;
+}
+
+.addon-panel-links {
+  display: flex;
+  justify-content: center;
+  gap: 14px;
+  margin-bottom: 20px;
+}
+
+.addon-link-btn {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 1px solid var(--panel-line);
+  background: var(--void);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s ease, border-color 0.2s ease, opacity 0.2s ease;
+}
+
+.addon-link-btn:hover,
+.addon-link-btn:focus-visible {
+  transform: translateY(-2px);
+  border-color: var(--panel-color);
+}
+
+.addon-link-btn img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.addon-link-btn.is-disabled {
+  opacity: 0.35;
+  filter: grayscale(1);
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.addon-panel-about {
+  color: var(--text-dim);
+  font-size: 14px;
+  line-height: 1.6;
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.addon-download-btn {
+  display: block;
+  width: 100%;
+  text-align: center;
+  padding: 13px 24px;
+  background: var(--mc-green);
+  color: var(--void);
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 13px;
+  letter-spacing: 0.06em;
+  border-radius: 8px;
+  box-shadow:
+    0 0 16px rgba(111, 207, 60, 0.5),
+    0 0 36px rgba(111, 207, 60, 0.3);
+  transition: filter 0.2s ease, transform 0.2s ease;
+}
+
+.addon-download-btn:hover,
+.addon-download-btn:focus-visible {
+  filter: brightness(1.08);
+  transform: translateY(-1px);
+}
+
+.addon-download-btn.is-unreleased {
+  background: #E33E3E;
+  color: var(--text);
+  cursor: not-allowed;
+  box-shadow:
+    0 0 16px rgba(227, 62, 62, 0.5),
+    0 0 36px rgba(227, 62, 62, 0.3);
+}
+
+.addon-download-btn.is-unreleased:hover,
+.addon-download-btn.is-unreleased:focus-visible {
+  filter: none;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .addon-backdrop,
+  .addon-panel {
+    transition: opacity 0.15s ease;
+  }
+  .addon-panel.is-open {
+    transform: scale(1);
+  }
+}
+
+/* ---------------------------------------
+   Responsive
+--------------------------------------- */
+@media (max-width: 640px) {
+  .site-header {
+    padding: 20px 24px;
+  }
+
+  .site-nav {
+    gap: 20px;
+  }
+
+  .hero {
+    padding: 40px 20px 72px;
+  }
+}
+
+/* ---------------------------------------
+   News page
+--------------------------------------- */
+.news-header {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  padding: 28px 48px;
+}
+
+.news-back {
+  display: inline-block;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 13px;
+  letter-spacing: 0.06em;
+  color: var(--text);
+  padding: 11px 22px;
+  border: 1px solid var(--panel-line);
+  border-radius: 8px;
+  transition: border-color 0.2s ease, background-color 0.2s ease;
+}
+
+.news-back:hover,
+.news-back:focus-visible {
+  border-color: var(--plasma);
+  background: rgba(255, 106, 61, 0.08);
+}
+
+.news-main {
+  position: relative;
+  z-index: 5;
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 24px 24px 96px;
+}
+
+.news-main h1 {
+  font-family: var(--font-display);
+  font-size: 28px;
+  letter-spacing: 0.02em;
+  text-align: center;
+  margin-bottom: 36px;
+}
+
+.news-list {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.news-empty {
+  text-align: center;
+  color: var(--text-dim);
+  font-size: 14px;
+}
+
+.news-card {
+  position: relative;
+  background: var(--panel);
+  border: 1px solid var(--panel-line);
+  border-left: 4px solid var(--text-dim);
+  border-radius: 10px;
+  padding: 20px 22px;
+}
+
+.news-card--important { border-left-color: #E8C547; }
+.news-card--normal    { border-left-color: var(--mc-green); }
+.news-card--warning   { border-left-color: #E33E3E; }
+.news-card--default   { border-left-color: var(--text-dim); }
+
+.news-card-head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 6px;
+}
+
+.news-card-title {
+  font-family: var(--font-display);
+  font-size: 16px;
+  letter-spacing: 0.01em;
+}
+
+.news-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: #FF3B3B;
+  flex-shrink: 0;
+  animation: news-dot-pulse 1.6s ease-in-out infinite;
+}
+
+@keyframes news-dot-pulse {
+  0%   { box-shadow: 0 0 0 0 rgba(255, 59, 59, 0.65); }
+  70%  { box-shadow: 0 0 0 9px rgba(255, 59, 59, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(255, 59, 59, 0); }
+}
+
+.news-card-date {
+  font-family: var(--font-display);
+  font-size: 12px;
+  letter-spacing: 0.05em;
+  color: var(--text-dim);
+  margin-bottom: 12px;
+}
+
+.news-card-body {
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--text-dim);
+  margin-bottom: 14px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .news-dot { animation: none; }
+}
+
+.credits-page .news-header,
+.gallery-page .news-header {
+  padding: 16px 48px;
+}
+
+/* ---------------------------------------
+   Credits page
+--------------------------------------- */
+.credits-main {
+  position: relative;
+  z-index: 5;
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 12px 24px 110px;
+}
+
+.credits-main h1 {
+  font-family: var(--font-display);
+  font-size: 24px;
+  letter-spacing: 0.02em;
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.credits-section {
+  margin-bottom: 48px;
+}
+
+.credits-section--tight {
+  margin-bottom: 4px;
+}
+
+.credits-section h2 {
+  font-family: var(--font-display);
+  font-size: 14px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-align: center;
+  color: var(--text-dim);
+  margin-bottom: 30px;
+}
+
+.credits-section--tight + .credits-section h2 {
+  margin-bottom: 14px;
+}
+
+/* Developer spotlight */
+.credits-developer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.credits-avatar-lg {
+  width: 118px;
+  height: 118px;
+  border-radius: 50%;
+  object-fit: cover;
+  aspect-ratio: 1 / 1;
+  flex-shrink: 0;
+  border: 2px solid var(--plasma);
+  box-shadow:
+    0 0 0 6px rgba(255, 106, 61, 0.08),
+    0 0 30px rgba(255, 106, 61, 0.4);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.credits-developer:hover .credits-avatar-lg {
+  transform: scale(1.08);
+  box-shadow:
+    0 0 0 6px rgba(255, 106, 61, 0.12),
+    0 0 44px rgba(255, 106, 61, 0.6);
+}
+
+.credits-name-lg {
+  font-family: var(--font-display);
+  font-size: 18px;
+  letter-spacing: 0.05em;
+}
+
+/* Grand Contributors — displayed like a ranking podium: the
+   center avatar (highest rank) is largest, its two immediate
+   neighbors are mid-sized, and the outer two are smallest, all
+   sitting on the same baseline. */
+.grand-row {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.grand-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 10px;
+  width: 90px;
+}
+
+.grand-avatar {
+  border-radius: 50%;
+  object-fit: cover;
+  aspect-ratio: 1 / 1;
+  flex-shrink: 0;
+  border: 2px solid var(--panel-line);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.grand-avatar--edge {
+  width: 52px;
+  height: 52px;
+}
+
+.grand-avatar--outer {
+  width: 64px;
+  height: 64px;
+}
+
+.grand-avatar--mid {
+  width: 82px;
+  height: 82px;
+  border-color: var(--cyan);
+}
+
+.grand-avatar--center {
+  width: 108px;
+  height: 108px;
+  border-color: #E8C547;
+  box-shadow:
+    0 0 0 6px rgba(232, 197, 71, 0.1),
+    0 0 34px rgba(232, 197, 71, 0.45);
+}
+
+.grand-item:hover .grand-avatar {
+  transform: scale(1.1);
+  box-shadow:
+    0 0 0 5px rgba(94, 230, 217, 0.12),
+    0 0 24px rgba(94, 230, 217, 0.5);
+}
+
+.grand-item:hover .grand-avatar--center {
+  box-shadow:
+    0 0 0 6px rgba(232, 197, 71, 0.16),
+    0 0 44px rgba(232, 197, 71, 0.65);
+}
+
+.grand-name {
+  font-family: var(--font-display);
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  color: var(--text-dim);
+}
+
+.grand-name--center {
+  color: var(--text);
+  font-size: 13px;
+}
+
+/* Technical Artists / Contributors / Inspirers — equal-sized rows */
+.credits-row {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 28px;
+}
+
+.credits-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.credits-avatar {
+  width: 78px;
+  height: 78px;
+  border-radius: 50%;
+  object-fit: cover;
+  aspect-ratio: 1 / 1;
+  flex-shrink: 0;
+  border: 2px solid var(--panel-line);
+  transition: border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.credits-item:hover .credits-avatar {
+  border-color: var(--cyan);
+  transform: scale(1.1);
+  box-shadow:
+    0 0 0 5px rgba(94, 230, 217, 0.12),
+    0 0 22px rgba(94, 230, 217, 0.5);
+}
+
+.credits-name {
+  font-family: var(--font-display);
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  color: var(--text-dim);
+}
+
+/* ---------------------------------------
+   Gallery page
+--------------------------------------- */
+.gallery-main {
+  position: relative;
+  z-index: 5;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 4px 24px 80px;
+}
+
+.gallery-main h1 {
+  font-family: var(--font-display);
+  font-size: 22px;
+  letter-spacing: 0.02em;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.gallery-rows {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.gallery-row-title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 14px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  text-align: center;
+  color: rgb(var(--row-glow));
+  margin-bottom: 10px;
+  text-shadow: 0 0 18px rgba(var(--row-glow), 0.5);
+}
+
+.gallery-row--bordered {
+  padding-bottom: 24px;
+  border-bottom: 2px solid rgba(var(--row-glow), 0.45);
+  box-shadow: 0 1px 12px rgba(var(--row-glow), 0.25);
+}
+
+.gallery-row--bordered:last-child {
+  border-bottom: none;
+  box-shadow: none;
+  padding-bottom: 0;
+}
+
+.gallery-track {
+  position: relative;
+  overflow: hidden;
+  padding: 4px 0;
+  -webkit-mask-image: linear-gradient(
+    90deg,
+    transparent 0,
+    #000 6%,
+    #000 94%,
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    90deg,
+    transparent 0,
+    #000 6%,
+    #000 94%,
+    transparent 100%
+  );
+}
+
+.gallery-strip {
+  display: flex;
+  gap: 18px;
+  width: max-content;
+}
+
+.gallery-track--ltr .gallery-strip {
+  animation: gallery-scroll-ltr 85s linear infinite;
+}
+
+.gallery-track--rtl .gallery-strip {
+  animation: gallery-scroll-rtl 85s linear infinite;
+}
+
+.gallery-track:hover .gallery-strip {
+  animation-play-state: paused;
+}
+
+@keyframes gallery-scroll-ltr {
+  from { transform: translateX(-50%); }
+  to   { transform: translateX(0); }
+}
+
+@keyframes gallery-scroll-rtl {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gallery-track--ltr .gallery-strip,
+  .gallery-track--rtl .gallery-strip {
+    animation: none;
+  }
+}
+
+.gallery-item {
+  flex: 0 0 auto;
+  width: 260px;
+  height: 150px;
+  border-radius: 10px;
+  overflow: hidden;
+  border: 2px solid var(--panel-line);
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.gallery-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.gallery-item:hover {
+  transform: scale(1.04);
+  border-color: rgb(var(--row-glow));
+  box-shadow:
+    0 0 0 4px rgba(var(--row-glow), 0.15),
+    0 0 26px rgba(var(--row-glow), 0.5);
+}
+
+/* Lightbox */
+.gallery-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(5, 6, 10, 0.6);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.25s ease, visibility 0.25s ease;
+}
+
+.gallery-backdrop.is-open {
+  opacity: 1;
+  visibility: visible;
+}
+
+.gallery-lightbox {
+  position: relative;
+  max-width: min(90vw, 1000px);
+  max-height: 85vh;
+  margin: 0;
+  border-radius: 14px;
+  border: 2px solid rgb(var(--lightbox-glow, 65, 145, 230));
+  box-shadow:
+    0 0 0 8px rgba(var(--lightbox-glow, 65, 145, 230), 0.12),
+    0 0 60px rgba(var(--lightbox-glow, 65, 145, 230), 0.55);
+  overflow: hidden;
+  transform: scale(0.94);
+  transition: transform 0.25s ease;
+  background: var(--panel);
+}
+
+.gallery-backdrop.is-open .gallery-lightbox {
+  transform: scale(1);
+}
+
+.gallery-lightbox img {
+  display: block;
+  max-width: min(90vw, 1000px);
+  max-height: 85vh;
+  object-fit: contain;
+}
+
+.gallery-lightbox-close {
+  position: absolute;
+  top: 24px;
+  right: 28px;
+  z-index: 51;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid var(--panel-line);
+  background: rgba(13, 15, 24, 0.8);
+  color: var(--text);
+  font-size: 22px;
+  line-height: 1;
+  cursor: pointer;
+  transition: border-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
+}
+
+.gallery-lightbox-close:hover {
+  border-color: var(--cyan);
+  color: var(--cyan);
+  transform: scale(1.08);
+}

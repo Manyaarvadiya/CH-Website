@@ -1,0 +1,60 @@
+{
+  "cosmos": {
+    "name": "Cosmic Horizons",
+    "color": "rgb(65, 145, 230)",
+    "glow": "65, 145, 230",
+    "about": "Cosmic Horizons is the foundation of the entire Cosmic Horizons universe, bringing realistic space exploration to Minecraft. Travel seamlessly across the Solar System and venture beyond to Alpha Centauri, B1400 Centauri, Gaia BH-1, and many more handcrafted star systems. Discover planets, moons, asteroid fields, black holes, and breathtaking cosmic phenomena, all rendered at an unprecedented scale. Built with realism, immersion, and performance in mind, Cosmic Horizons serves as the core platform that every official addon expands upon. Requires the Soul Shade library.",
+    "modrinth": "#",
+    "curseforge": "#",
+    "released": true
+  },
+  "spheromatic": {
+    "name": "Spheromatic",
+    "color": "var(--hex-spheromatic)",
+    "glow": "var(--glow-spheromatic)",
+    "about": "Say goodbye to cubes. Spheromatic completely transforms the appearance of Cosmic Horizons by replacing cubic planets, moons, rings, stars, black holes, and other celestial bodies with beautifully smooth, true spherical geometry. Designed for players who prefer a more realistic universe, it enhances immersion while remaining fully compatible with the core mod and preserving gameplay.",
+    "modrinth": "#",
+    "curseforge": "#",
+    "released": true
+  },
+  "every-mans-sky": {
+    "name": "Every Man's Sky",
+    "color": "var(--hex-every-mans-sky)",
+    "glow": "var(--glow-every-mans-sky)",
+    "about": "The universe never ends. Every Man's Sky procedurally generates an effectively infinite galaxy filled with unique star systems, colorful nebulae, exotic planets, and spectacular celestial formations. Every journey leads somewhere new, ensuring that no two adventures are ever the same.",
+    "modrinth": "#",
+    "curseforge": "#"
+  },
+  "realio": {
+    "name": "Realio",
+    "color": "var(--hex-realio)",
+    "glow": "var(--glow-realio)",
+    "about": "Push realism to the next level with advanced physics, dynamic gravity, and enhanced visual effects. Realio introduces optional realistic mechanics, improves environmental immersion, and provides seamless compatibility with mods such as Valkyrien Skies and Sable, creating a more believable and physically accurate universe.",
+    "modrinth": "#",
+    "curseforge": "#"
+  },
+  "mayhem": {
+    "name": "Mayhem",
+    "color": "var(--hex-mayhem)",
+    "glow": "var(--glow-mayhem)",
+    "about": "When diplomacy fails, Mayhem delivers overwhelming firepower. Build devastating weapons, experimental technologies, orbital bombardment systems, and other planet-shaking superweapons capable of reshaping worlds. Perfect for players seeking large-scale warfare and ultimate destruction.",
+    "modrinth": "#",
+    "curseforge": "#"
+  },
+  "trappist": {
+    "name": "Trappist",
+    "color": "var(--hex-trappist)",
+    "glow": "var(--glow-trappist)",
+    "about": "Explore the famous TRAPPIST-1 planetary system, faithfully recreated with its seven fascinating worlds. Search for potentially habitable environments, study alien landscapes, and uncover the mysteries of one of the most celebrated planetary systems ever discovered.",
+    "modrinth": "#",
+    "curseforge": "#"
+  },
+  "machine-world": {
+    "name": "Machine World",
+    "color": "var(--hex-machine-world)",
+    "glow": "var(--glow-machine-world)",
+    "about": "Engineer colossal megastructures unlike anything seen before. Construct Machine Worlds, Ring Worlds, Dyson Spheres, Star Lifters, and other monumental engineering projects while unlocking powerful new methods of energy production, automation, and interstellar industry. Turn entire planets into machines and harness the power of stars themselves.",
+    "modrinth": "#",
+    "curseforge": "#"
+  }
+}

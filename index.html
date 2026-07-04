@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cosmos — A Minecraft Space Mod</title>
+  <meta name="description" content="Cosmos is a Minecraft mod that adds galaxies, planets, black holes, and dimension travel." />
+  <link rel="icon" type="image/png" href="assets/img/cosmos.png" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <canvas id="starfield"></canvas>
+
+  <header class="site-header">
+    <div class="nav-menu">
+      <button class="nav-menu-toggle" id="navMenuToggle" aria-label="Open menu" aria-expanded="false" aria-controls="navMenuDropdown">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+      <div class="nav-menu-dropdown" id="navMenuDropdown">
+        <button class="nav-menu-item" id="navMenuDiscord" type="button">
+          <img src="assets/img/discord.png" alt="" />
+          <span>Discord</span>
+        </button>
+        <a class="nav-menu-item" href="news.html">
+          <img src="assets/img/news.png" alt="" />
+          <span>News</span>
+        </a>
+        <a class="nav-menu-item" href="credits.html">
+          <img src="assets/img/credits.png" alt="" />
+          <span>Credits</span>
+        </a>
+      </div>
+    </div>
+    <nav class="site-nav">
+      <a href="gallery.html" class="nav-gallery">Gallery</a>
+      <a href="#features" class="nav-features">Features</a>
+      <a href="#viewport" class="nav-downloads">Downloads</a>
+      <a href="#specs" class="nav-specs">Specs</a>
+    </nav>
+  </header>
+
+  <main>
+
+    <section class="hero" id="viewport">
+      <h1 class="hero-title-3d">Cosmic&nbsp;Horizons</h1>
+
+      <div class="hero-text">
+        <p class="hero-lede">The Skies were never the Ceiling</p>
+        <p class="hero-sub-line">A beautifully crafted <span class="mc-green">Minecraft</span> space mod.<br />There is a place for everyone.</p>
+      </div>
+
+      <div class="orrery">
+
+        <svg class="trail-defs" width="0" height="0">
+          <defs>
+            <linearGradient id="trail-fade-spheromatic" gradientUnits="userSpaceOnUse" x1="25.88" y1="-96.59" x2="76.60" y2="-64.28">
+              <stop offset="0%" stop-color="var(--hex-spheromatic)" stop-opacity="0" />
+              <stop offset="100%" stop-color="var(--hex-spheromatic)" stop-opacity="0.6" />
+            </linearGradient>
+            <linearGradient id="trail-fade-every-mans-sky" gradientUnits="userSpaceOnUse" x1="100.00" y1="0.00" x2="81.92" y2="57.36">
+              <stop offset="0%" stop-color="var(--hex-every-mans-sky)" stop-opacity="0" />
+              <stop offset="100%" stop-color="var(--hex-every-mans-sky)" stop-opacity="0.6" />
+            </linearGradient>
+            <linearGradient id="trail-fade-realio" gradientUnits="userSpaceOnUse" x1="-42.26" y1="90.63" x2="-86.60" y2="50.00">
+              <stop offset="0%" stop-color="var(--hex-realio)" stop-opacity="0" />
+              <stop offset="100%" stop-color="var(--hex-realio)" stop-opacity="0.6" />
+            </linearGradient>
+            <linearGradient id="trail-fade-mayhem" gradientUnits="userSpaceOnUse" x1="-90.63" y1="-42.26" x2="-50.00" y2="-86.60">
+              <stop offset="0%" stop-color="var(--hex-mayhem)" stop-opacity="0" />
+              <stop offset="100%" stop-color="var(--hex-mayhem)" stop-opacity="0.6" />
+            </linearGradient>
+            <linearGradient id="trail-fade-trappist" gradientUnits="userSpaceOnUse" x1="42.26" y1="90.63" x2="-17.36" y2="98.48">
+              <stop offset="0%" stop-color="var(--hex-trappist)" stop-opacity="0" />
+              <stop offset="100%" stop-color="var(--hex-trappist)" stop-opacity="0.6" />
+            </linearGradient>
+            <linearGradient id="trail-fade-machine-world" gradientUnits="userSpaceOnUse" x1="-98.48" y1="17.36" x2="-90.63" y2="-42.26">
+              <stop offset="0%" stop-color="var(--hex-machine-world)" stop-opacity="0" />
+              <stop offset="100%" stop-color="var(--hex-machine-world)" stop-opacity="0.6" />
+            </linearGradient>
+          </defs>
+        </svg>
+
+        <div class="orbit-ring orbit-ring--1"></div>
+        <div class="orbit-ring orbit-ring--2"></div>
+        <div class="orbit-ring orbit-ring--3"></div>
+        <div class="orbit-ring orbit-ring--4"></div>
+        <div class="orbit-ring orbit-ring--5"></div>
+        <div class="orbit-ring orbit-ring--6"></div>
+
+        <svg class="trail trail--spheromatic" style="--angle: -40deg;" viewBox="-100 -100 200 200">
+          <path d="M 25.88 -96.59 A 100 100 0 0 1 76.60 -64.28" stroke="url(#trail-fade-spheromatic)" />
+        </svg>
+        <div class="planet planet--spheromatic" style="--angle: -40deg;" data-addon="spheromatic">
+          <img src="assets/img/spheromatic.png" alt="Spheromatic" />
+          <span class="planet-label">Spheromatic</span>
+        </div>
+
+        <svg class="trail trail--every-mans-sky" style="--angle: 35deg;" viewBox="-100 -100 200 200">
+          <path d="M 100.00 0.00 A 100 100 0 0 1 81.92 57.36" stroke="url(#trail-fade-every-mans-sky)" />
+        </svg>
+        <div class="planet planet--every-mans-sky" style="--angle: 35deg;" data-addon="every-mans-sky">
+          <img src="assets/img/every_mans_sky.png" alt="Every Man's Sky" />
+          <span class="planet-label">Every Man's Sky</span>
+        </div>
+
+        <svg class="trail trail--realio" style="--angle: 150deg;" viewBox="-100 -100 200 200">
+          <path d="M -42.26 90.63 A 100 100 0 0 1 -86.60 50.00" stroke="url(#trail-fade-realio)" />
+        </svg>
+        <div class="planet planet--realio" style="--angle: 150deg;" data-addon="realio">
+          <img src="assets/img/realio.png" alt="Realio" />
+          <span class="planet-label">Realio</span>
+        </div>
+
+        <svg class="trail trail--mayhem" style="--angle: -120deg;" viewBox="-100 -100 200 200">
+          <path d="M -90.63 -42.26 A 100 100 0 0 1 -50.00 -86.60" stroke="url(#trail-fade-mayhem)" />
+        </svg>
+        <div class="planet planet--mayhem" style="--angle: -120deg;" data-addon="mayhem">
+          <img src="assets/img/mayhem.png" alt="Mayhem" />
+          <span class="planet-label">Mayhem</span>
+        </div>
+
+        <svg class="trail trail--trappist" style="--angle: 100deg;" viewBox="-100 -100 200 200">
+          <path d="M 42.26 90.63 A 100 100 0 0 1 -17.36 98.48" stroke="url(#trail-fade-trappist)" />
+        </svg>
+        <div class="planet planet--trappist" style="--angle: 100deg;" data-addon="trappist">
+          <img src="assets/img/trappist.png" alt="Trappist" />
+          <span class="planet-label">Trappist</span>
+        </div>
+
+        <svg class="trail trail--machine-world" style="--angle: -155deg;" viewBox="-100 -100 200 200">
+          <path d="M -98.48 17.36 A 100 100 0 0 1 -90.63 -42.26" stroke="url(#trail-fade-machine-world)" />
+        </svg>
+        <div class="planet planet--machine-world" style="--angle: -155deg;" data-addon="machine-world">
+          <img src="assets/img/machine_world.png" alt="Machine World" />
+          <span class="planet-label">Machine World</span>
+        </div>
+
+        <div class="hero-core" data-addon="cosmos">
+          <img src="assets/img/cosmos.png" alt="Cosmic Horizons mod screenshot" class="hero-core-image" />
+          <span class="planet-label hero-core-label">Cosmic Horizons</span>
+        </div>
+
+      </div>
+    </section>
+
+    <section class="features" id="features">
+      <h2>What's out there</h2>
+      <div class="feature-grid">
+        <article class="feature-card">
+          <h3>Beautifully Crafted Star Scapes</h3>
+          <p>Explore the Solar System, Alpha Centauri, B1400 Centauri, and Gaia BH-1, each rendered as its own unique starscape.</p>
+        </article>
+        <article class="feature-card">
+          <h3>3D Space Travel</h3>
+          <p>Physically fly through space yourself, no menus or button clicks. Get too close to a black hole and see what happens.</p>
+        </article>
+        <article class="feature-card">
+          <h3>Dimension Travel</h3>
+          <p>Leave the overworld behind and chart a course through custom dimensions and planets.</p>
+        </article>
+        <article class="feature-card">
+          <h3>Dynamic Weather</h3>
+          <p>Dust storms, meteor showers, and atmospheric effects tuned to each world you visit.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="specs" id="specs">
+      <h2>System Requirements</h2>
+      <p class="specs-note">The following spec sheet considers only Cosmic Horizons at its suggested settings, render distance 6. In space, everything renders regardless of render distance.</p>
+
+      <div class="specs-grid">
+        <article class="specs-card specs-card--min">
+          <h3>Minimum</h3>
+          <p class="specs-fps">60&ndash;230 FPS</p>
+          <dl>
+            <div class="specs-row"><dt>RAM</dt><dd>8 GB</dd></div>
+            <div class="specs-row"><dt>GPU</dt><dd>Integrated Graphics</dd></div>
+            <div class="specs-row"><dt>CPU</dt><dd>Intel i3, 7th Gen</dd></div>
+          </dl>
+        </article>
+
+        <article class="specs-card specs-card--mid">
+          <h3>Mid Range</h3>
+          <p class="specs-fps">150&ndash;300 FPS</p>
+          <dl>
+            <div class="specs-row"><dt>RAM</dt><dd>8 GB</dd></div>
+            <div class="specs-row"><dt>GPU</dt><dd>Integrated Graphics</dd></div>
+            <div class="specs-row"><dt>CPU</dt><dd>Intel i7, 10th Gen</dd></div>
+          </dl>
+        </article>
+
+        <article class="specs-card specs-card--rec">
+          <h3>Recommended</h3>
+          <p class="specs-fps">Stable 400&ndash;450 FPS</p>
+          <dl>
+            <div class="specs-row"><dt>RAM</dt><dd>16 GB</dd></div>
+            <div class="specs-row"><dt>GPU</dt><dd>Integrated Graphics</dd></div>
+            <div class="specs-row"><dt>CPU</dt><dd>Ryzen 5 7600</dd></div>
+          </dl>
+        </article>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <p>Cosmos is an independent Minecraft mod. Not affiliated with Mojang or Microsoft.</p>
+  </footer>
+
+  <div class="addon-backdrop" id="addonBackdrop">
+    <div class="addon-panel" id="addonPanel" role="dialog" aria-modal="true" aria-labelledby="addonPanelName">
+      <button class="addon-panel-close" id="addonPanelClose" aria-label="Close">&times;</button>
+      <h3 class="addon-panel-name" id="addonPanelName"></h3>
+      <div class="addon-panel-links">
+        <a class="addon-link-btn" id="addonPanelModrinth" href="#" target="_blank" rel="noopener">
+          <img src="assets/img/modrinth.png" alt="Modrinth" />
+        </a>
+        <a class="addon-link-btn" id="addonPanelCurseforge" href="#" target="_blank" rel="noopener">
+          <img src="assets/img/curseforge.png" alt="CurseForge" />
+        </a>
+      </div>
+      <p class="addon-panel-about" id="addonPanelAbout"></p>
+      <a class="addon-download-btn" id="addonPanelDownload" href="#" target="_blank" rel="noopener">Download</a>
+    </div>
+  </div>
+
+  <script type="application/json" id="addonData">
+  {
+    "cosmos": {
+      "name": "Cosmic Horizons",
+      "color": "rgb(65, 145, 230)",
+      "glow": "65, 145, 230",
+      "about": "Cosmic Horizons is the foundation of the entire Cosmic Horizons universe, bringing realistic space exploration to Minecraft. Travel seamlessly across the Solar System and venture beyond to Alpha Centauri, B1400 Centauri, Gaia BH-1, and many more handcrafted star systems. Discover planets, moons, asteroid fields, black holes, and breathtaking cosmic phenomena, all rendered at an unprecedented scale. Built with realism, immersion, and performance in mind, Cosmic Horizons serves as the core platform that every official addon expands upon. Requires the Soul Shade library.",
+      "released": true,
+      "modrinth": "#",
+      "curseforge": "#"
+    },
+    "spheromatic": {
+      "name": "Spheromatic",
+      "color": "#9866C7",
+      "glow": "152, 102, 199",
+      "about": "Say goodbye to cubes. Spheromatic completely transforms the appearance of Cosmic Horizons by replacing cubic planets, moons, rings, stars, black holes, and other celestial bodies with beautifully smooth, true spherical geometry. Designed for players who prefer a more realistic universe, it enhances immersion while remaining fully compatible with the core mod and preserving gameplay.",
+      "released": true,
+      "modrinth": "#",
+      "curseforge": "#"
+    },
+    "every-mans-sky": {
+      "name": "Every Man's Sky",
+      "color": "#CF468C",
+      "glow": "207, 70, 140",
+      "about": "The universe never ends. Every Man's Sky procedurally generates an effectively infinite galaxy filled with unique star systems, colorful nebulae, exotic planets, and spectacular celestial formations. Every journey leads somewhere new, ensuring that no two adventures are ever the same.",
+      "released": false,
+      "modrinth": "#",
+      "curseforge": "#"
+    },
+    "realio": {
+      "name": "Realio",
+      "color": "#E32124",
+      "glow": "227, 33, 36",
+      "about": "Push realism to the next level with advanced physics, dynamic gravity, and enhanced visual effects. Realio introduces optional realistic mechanics, improves environmental immersion, and provides seamless compatibility with mods such as Valkyrien Skies and Sable, creating a more believable and physically accurate universe.",
+      "released": false,
+      "modrinth": "#",
+      "curseforge": "#"
+    },
+    "mayhem": {
+      "name": "Mayhem",
+      "color": "#F98604",
+      "glow": "249, 134, 4",
+      "about": "When diplomacy fails, Mayhem delivers overwhelming firepower. Build devastating weapons, experimental technologies, orbital bombardment systems, and other planet-shaking superweapons capable of reshaping worlds. Perfect for players seeking large-scale warfare and ultimate destruction.",
+      "released": false,
+      "modrinth": "#",
+      "curseforge": "#"
+    },
+    "trappist": {
+      "name": "Trappist",
+      "color": "#97D802",
+      "glow": "151, 216, 2",
+      "about": "Explore the famous TRAPPIST-1 planetary system, faithfully recreated with its seven fascinating worlds. Search for potentially habitable environments, study alien landscapes, and uncover the mysteries of one of the most celebrated planetary systems ever discovered.",
+      "released": false,
+      "modrinth": "#",
+      "curseforge": "#"
+    },
+    "machine-world": {
+      "name": "Machine World",
+      "color": "#D2D2DC",
+      "glow": "210, 210, 220",
+      "about": "Engineer colossal megastructures unlike anything seen before. Construct Machine Worlds, Ring Worlds, Dyson Spheres, Star Lifters, and other monumental engineering projects while unlocking powerful new methods of energy production, automation, and interstellar industry. Turn entire planets into machines and harness the power of stars themselves.",
+      "released": false,
+      "modrinth": "#",
+      "curseforge": "#"
+    }
+  }
+  </script>
+  <script src="js/starfield.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/addon-panel.js"></script>
+</body>
+</html>

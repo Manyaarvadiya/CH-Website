@@ -322,12 +322,15 @@ main {
    Orrery: cosmos.png core with orbiting planets
 --------------------------------------- */
 .orrery {
+  --orrery-size: min(680px, 92vw);
   position: relative;
-  width: min(680px, 92vw);
+  width: var(--orrery-size);
+  max-width: 100vw;
   aspect-ratio: 1 / 1;
   display: flex;
   align-items: center;
   justify-content: center;
+  overflow: visible;
 }
 
 /* The central hero image — square, rounded corners, half the old scale */
@@ -471,6 +474,9 @@ main {
   left: 50%;
   transform: translate(-50%, calc(-50% - 46px));
   white-space: nowrap;
+  max-width: 40vw;
+  overflow: hidden;
+  text-overflow: ellipsis;
   font-family: var(--font-display);
   font-size: 11px;
   letter-spacing: 0.06em;
@@ -495,12 +501,12 @@ main {
    matching the orbit-ring diameters above, so planets actually sit on
    their rings instead of collapsing toward center. All icons share one
    standard size so nothing looks undersized or soft at render time. */
-.planet--spheromatic     { --radius: calc(min(680px, 92vw) * 0.23); --glow: var(--glow-spheromatic); }
-.planet--every-mans-sky  { --radius: calc(min(680px, 92vw) * 0.31); --glow: var(--glow-every-mans-sky); }
-.planet--realio          { --radius: calc(min(680px, 92vw) * 0.38); --glow: var(--glow-realio); }
-.planet--mayhem          { --radius: calc(min(680px, 92vw) * 0.44); --glow: var(--glow-mayhem); }
-.planet--trappist        { --radius: calc(min(680px, 92vw) * 0.50); --glow: var(--glow-trappist); }
-.planet--machine-world   { --radius: calc(min(680px, 92vw) * 0.56); --glow: var(--glow-machine-world); }
+.planet--spheromatic     { --radius: calc(var(--orrery-size) * 0.23); --glow: var(--glow-spheromatic); }
+.planet--every-mans-sky  { --radius: calc(var(--orrery-size) * 0.31); --glow: var(--glow-every-mans-sky); }
+.planet--realio          { --radius: calc(var(--orrery-size) * 0.38); --glow: var(--glow-realio); }
+.planet--mayhem          { --radius: calc(var(--orrery-size) * 0.44); --glow: var(--glow-mayhem); }
+.planet--trappist        { --radius: calc(var(--orrery-size) * 0.50); --glow: var(--glow-trappist); }
+.planet--machine-world   { --radius: calc(var(--orrery-size) * 0.56); --glow: var(--glow-machine-world); }
 
 @keyframes orbit-drift {
   from { transform: translate(-50%, -50%) rotate(var(--angle)) translateX(var(--radius)) rotate(calc(var(--angle) * -1)); }
@@ -566,6 +572,30 @@ main {
 @media (max-width: 640px) {
   .planet--trappist img,
   .planet--machine-world img { display: none; }
+
+  .orrery {
+    --orrery-size: min(680px, 82vw);
+  }
+
+  .planet img {
+    width: 44px;
+    height: 44px;
+  }
+
+  .planet-label {
+    font-size: 10px;
+    padding: 4px 8px;
+  }
+}
+
+@media (max-width: 420px) {
+  .orrery {
+    --orrery-size: min(680px, 70vw);
+  }
+
+  .planet--mayhem img {
+    display: none;
+  }
 }
 
 /* ---------------------------------------
@@ -915,24 +945,34 @@ main {
 /* ---------------------------------------
    News page
 --------------------------------------- */
+/* Fixed flush to the top-left corner on every device, matching the
+   hamburger menu's treatment on the homepage — independent of the
+   header's own box so it can never drift with page padding/scroll. */
 .news-header {
-  position: relative;
-  z-index: 10;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 100;
   display: flex;
   align-items: center;
-  padding: 28px 48px;
+  padding: 0;
 }
 
 .news-back {
-  display: inline-block;
+  display: flex;
+  align-items: center;
+  height: 40px;
   font-family: var(--font-display);
   font-weight: 700;
   font-size: 13px;
   letter-spacing: 0.06em;
   color: var(--text);
-  padding: 11px 22px;
+  padding: 0 20px;
+  background: var(--panel);
   border: 1px solid var(--panel-line);
-  border-radius: 8px;
+  border-top: none;
+  border-left: none;
+  border-radius: 0 0 10px 0;
   transition: border-color 0.2s ease, background-color 0.2s ease;
 }
 
@@ -947,7 +987,7 @@ main {
   z-index: 5;
   max-width: 760px;
   margin: 0 auto;
-  padding: 24px 24px 96px;
+  padding: 88px 24px 96px;
 }
 
 .news-main h1 {
@@ -1031,11 +1071,6 @@ main {
   .news-dot { animation: none; }
 }
 
-.credits-page .news-header,
-.gallery-page .news-header {
-  padding: 16px 48px;
-}
-
 /* ---------------------------------------
    Credits page
 --------------------------------------- */
@@ -1044,7 +1079,7 @@ main {
   z-index: 5;
   max-width: 860px;
   margin: 0 auto;
-  padding: 12px 24px 110px;
+  padding: 76px 24px 110px;
 }
 
 .credits-main h1 {
@@ -1233,6 +1268,79 @@ main {
   color: var(--text-dim);
 }
 
+/* Mobile credits: the podium sizing in .grand-row and the wide
+   flex rows in .credits-row both depend on generous horizontal
+   space to read correctly. Below that space, replace them with a
+   uniform, evenly-spaced grid so nothing wraps into an unbalanced
+   or overlapping layout. */
+@media (max-width: 640px) {
+  .grand-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    justify-items: center;
+    gap: 24px 12px;
+  }
+
+  .grand-item {
+    width: 100%;
+  }
+
+  .grand-avatar,
+  .grand-avatar--edge,
+  .grand-avatar--outer,
+  .grand-avatar--mid {
+    width: 68px;
+    height: 68px;
+  }
+
+  .grand-avatar--center {
+    width: 88px;
+    height: 88px;
+  }
+
+  .grand-item:nth-child(4) {
+    grid-column: 2;
+  }
+
+  .grand-name,
+  .grand-name--center {
+    font-size: 11px;
+    text-align: center;
+  }
+
+  .credits-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    justify-items: center;
+    gap: 22px 10px;
+  }
+
+  .credits-item {
+    width: 100%;
+  }
+
+  .credits-avatar {
+    width: 64px;
+    height: 64px;
+  }
+
+  .credits-name {
+    font-size: 11px;
+    text-align: center;
+  }
+}
+
+@media (max-width: 380px) {
+  .grand-row,
+  .credits-row {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .grand-item:nth-child(4) {
+    grid-column: auto;
+  }
+}
+
 /* ---------------------------------------
    Gallery page
 --------------------------------------- */
@@ -1241,7 +1349,7 @@ main {
   z-index: 5;
   max-width: 1400px;
   margin: 0 auto;
-  padding: 4px 24px 80px;
+  padding: 76px 24px 80px;
 }
 
 .gallery-main h1 {

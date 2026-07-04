@@ -333,11 +333,13 @@ main {
   overflow: visible;
 }
 
-/* The central hero image — square, rounded corners, half the old scale */
+/* The central hero image — square, rounded corners. Sized directly
+   off --orrery-size (not just a % of the flex box) so it always
+   scales in lockstep with the planet icons below, on every device. */
 .hero-core {
   position: relative;
   z-index: 5;
-  width: 15%;
+  width: calc(var(--orrery-size) * 0.15);
   aspect-ratio: 1 / 1;
 }
 
@@ -415,8 +417,8 @@ main {
   transform-origin: center;
   max-width: none;
   object-fit: cover;
-  width: 64px;
-  height: 64px;
+  width: calc(var(--orrery-size) * 0.094);
+  height: calc(var(--orrery-size) * 0.094);
   border-radius: 25.7%;
   image-rendering: auto;
   z-index: 1;
@@ -548,11 +550,6 @@ main {
   .trail { animation: none; }
 }
 
-@media (max-width: 640px) {
-  .trail--trappist,
-  .trail--machine-world { display: none; }
-}
-
 .viewport-caption {
   position: absolute;
   bottom: -8px;
@@ -570,16 +567,8 @@ main {
 }
 
 @media (max-width: 640px) {
-  .planet--trappist img,
-  .planet--machine-world img { display: none; }
-
   .orrery {
     --orrery-size: min(680px, 82vw);
-  }
-
-  .planet img {
-    width: 44px;
-    height: 44px;
   }
 
   .planet-label {
@@ -591,10 +580,6 @@ main {
 @media (max-width: 420px) {
   .orrery {
     --orrery-size: min(680px, 70vw);
-  }
-
-  .planet--mayhem img {
-    display: none;
   }
 }
 
@@ -1271,8 +1256,7 @@ main {
 /* Mobile credits: the podium sizing in .grand-row and the wide
    flex rows in .credits-row both depend on generous horizontal
    space to read correctly. Below that space, replace them with a
-   uniform, evenly-spaced grid so nothing wraps into an unbalanced
-   or overlapping layout. */
+   uniform grid — every avatar the same size, simply lined up. */
 @media (max-width: 640px) {
   .grand-row {
     display: grid;
@@ -1288,18 +1272,10 @@ main {
   .grand-avatar,
   .grand-avatar--edge,
   .grand-avatar--outer,
-  .grand-avatar--mid {
-    width: 68px;
-    height: 68px;
-  }
-
+  .grand-avatar--mid,
   .grand-avatar--center {
-    width: 88px;
-    height: 88px;
-  }
-
-  .grand-item:nth-child(4) {
-    grid-column: 2;
+    width: 72px;
+    height: 72px;
   }
 
   .grand-name,
@@ -1334,10 +1310,6 @@ main {
   .grand-row,
   .credits-row {
     grid-template-columns: repeat(2, 1fr);
-  }
-
-  .grand-item:nth-child(4) {
-    grid-column: auto;
   }
 }
 

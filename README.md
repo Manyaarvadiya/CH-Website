@@ -1,1 +1,1 @@
-url - https://manyaarvadiya.github.io/CH-Website
+URL - https://manyaarvadiya.github.io/CH-Website

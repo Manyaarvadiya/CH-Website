@@ -60,15 +60,15 @@
               <stop offset="0%" stop-color="var(--hex-spheromatic)" stop-opacity="0" />
               <stop offset="100%" stop-color="var(--hex-spheromatic)" stop-opacity="0.6" />
             </linearGradient>
-            <linearGradient id="trail-fade-every-mans-sky" gradientUnits="userSpaceOnUse" x1="100.00" y1="0.00" x2="81.92" y2="57.36">
+            <linearGradient id="trail-fade-every-mans-sky" gradientUnits="userSpaceOnUse" x1="100" y1="0" x2="81.92" y2="57.36">
               <stop offset="0%" stop-color="var(--hex-every-mans-sky)" stop-opacity="0" />
               <stop offset="100%" stop-color="var(--hex-every-mans-sky)" stop-opacity="0.6" />
             </linearGradient>
-            <linearGradient id="trail-fade-realio" gradientUnits="userSpaceOnUse" x1="-42.26" y1="90.63" x2="-86.60" y2="50.00">
+            <linearGradient id="trail-fade-realio" gradientUnits="userSpaceOnUse" x1="-42.26" y1="90.63" x2="-86.60" y2="50">
               <stop offset="0%" stop-color="var(--hex-realio)" stop-opacity="0" />
               <stop offset="100%" stop-color="var(--hex-realio)" stop-opacity="0.6" />
             </linearGradient>
-            <linearGradient id="trail-fade-mayhem" gradientUnits="userSpaceOnUse" x1="-90.63" y1="-42.26" x2="-50.00" y2="-86.60">
+            <linearGradient id="trail-fade-mayhem" gradientUnits="userSpaceOnUse" x1="-90.63" y1="-42.26" x2="-50" y2="-86.60">
               <stop offset="0%" stop-color="var(--hex-mayhem)" stop-opacity="0" />
               <stop offset="100%" stop-color="var(--hex-mayhem)" stop-opacity="0.6" />
             </linearGradient>
@@ -99,7 +99,7 @@
         </div>
 
         <svg class="trail trail--every-mans-sky" style="--angle: 35deg;" viewBox="-100 -100 200 200">
-          <path d="M 100.00 0.00 A 100 100 0 0 1 81.92 57.36" stroke="url(#trail-fade-every-mans-sky)" />
+          <path d="M 100 0 A 100 100 0 0 1 81.92 57.36" stroke="url(#trail-fade-every-mans-sky)" />
         </svg>
         <div class="planet planet--every-mans-sky" style="--angle: 35deg;" data-addon="every-mans-sky">
           <img src="assets/img/every_mans_sky.png" alt="Every Man's Sky" />
@@ -107,7 +107,7 @@
         </div>
 
         <svg class="trail trail--realio" style="--angle: 150deg;" viewBox="-100 -100 200 200">
-          <path d="M -42.26 90.63 A 100 100 0 0 1 -86.60 50.00" stroke="url(#trail-fade-realio)" />
+          <path d="M -42.26 90.63 A 100 100 0 0 1 -86.60 50" stroke="url(#trail-fade-realio)" />
         </svg>
         <div class="planet planet--realio" style="--angle: 150deg;" data-addon="realio">
           <img src="assets/img/realio.png" alt="Realio" />
@@ -115,7 +115,7 @@
         </div>
 
         <svg class="trail trail--mayhem" style="--angle: -120deg;" viewBox="-100 -100 200 200">
-          <path d="M -90.63 -42.26 A 100 100 0 0 1 -50.00 -86.60" stroke="url(#trail-fade-mayhem)" />
+          <path d="M -90.63 -42.26 A 100 100 0 0 1 -50 -86.60" stroke="url(#trail-fade-mayhem)" />
         </svg>
         <div class="planet planet--mayhem" style="--angle: -120deg;" data-addon="mayhem">
           <img src="assets/img/mayhem.png" alt="Mayhem" />
@@ -234,7 +234,7 @@
       "name": "Cosmic Horizons",
       "color": "rgb(65, 145, 230)",
       "glow": "65, 145, 230",
-      "about": "Cosmic Horizons is the foundation of the entire Cosmic Horizons universe, bringing realistic space exploration to Minecraft. Travel seamlessly across the Solar System and venture beyond to Alpha Centauri, B1400 Centauri, Gaia BH-1, and many more handcrafted star systems. Discover planets, moons, asteroid fields, black holes, and breathtaking cosmic phenomena, all rendered at an unprecedented scale. Built with realism, immersion, and performance in mind, Cosmic Horizons serves as the core platform that every official addon expands upon. Requires the Soul Shade library.",
+      "about": "The foundation of the whole thing. Cosmic Horizons rebuilds space in Minecraft from the ground up, with real scale, real distances, and real reasons to fly further than you thought you could. Start in the Solar System, then push out to Alpha Centauri, B1400 Centauri, Gaia BH-1, and whatever else has been added since you last checked. Planets, moons, asteroid fields, black holes, all built to be flown through, not just looked at. Every other addon on this page builds on top of this one. Requires Soul Shade.",
       "released": true,
       "modrinth": "#",
       "curseforge": "#"
@@ -243,7 +243,7 @@
       "name": "Spheromatic",
       "color": "#9866C7",
       "glow": "152, 102, 199",
-      "about": "Say goodbye to cubes. Spheromatic completely transforms the appearance of Cosmic Horizons by replacing cubic planets, moons, rings, stars, black holes, and other celestial bodies with beautifully smooth, true spherical geometry. Designed for players who prefer a more realistic universe, it enhances immersion while remaining fully compatible with the core mod and preserving gameplay.",
+      "about": "Cosmic Horizons, minus the cubes. Spheromatic swaps out the blocky planets, moons, rings, stars, and black holes for actual sphere geometry, so the universe finally looks the way it should from a distance. Drop it in alongside the base mod and nothing else changes, it's a visual layer, not a rework.",
       "released": true,
       "modrinth": "#",
       "curseforge": "#"
@@ -252,7 +252,7 @@
       "name": "Every Man's Sky",
       "color": "#CF468C",
       "glow": "207, 70, 140",
-      "about": "The universe never ends. Every Man's Sky procedurally generates an effectively infinite galaxy filled with unique star systems, colorful nebulae, exotic planets, and spectacular celestial formations. Every journey leads somewhere new, ensuring that no two adventures are ever the same.",
+      "about": "For when seven star systems isn't enough. This addon generates new systems on the fly, nebulae, planets, weird formations, none of it hand placed. Fly far enough in any direction and there's always another one waiting.",
       "released": false,
       "modrinth": "#",
       "curseforge": "#"
@@ -261,7 +261,7 @@
       "name": "Realio",
       "color": "#E32124",
       "glow": "227, 33, 36",
-      "about": "Push realism to the next level with advanced physics, dynamic gravity, and enhanced visual effects. Realio introduces optional realistic mechanics, improves environmental immersion, and provides seamless compatibility with mods such as Valkyrien Skies and Sable, creating a more believable and physically accurate universe.",
+      "about": "The realism slider, cranked up. Proper gravity, physics that don't cut corners, and hooks into Valkyrien Skies and Sable so ships and structures behave the way you'd expect them to out in the void.",
       "released": false,
       "modrinth": "#",
       "curseforge": "#"
@@ -270,7 +270,7 @@
       "name": "Mayhem",
       "color": "#F98604",
       "glow": "249, 134, 4",
-      "about": "When diplomacy fails, Mayhem delivers overwhelming firepower. Build devastating weapons, experimental technologies, orbital bombardment systems, and other planet-shaking superweapons capable of reshaping worlds. Perfect for players seeking large-scale warfare and ultimate destruction.",
+      "about": "Sometimes you just want to blow up a planet. Mayhem adds weapons, prototype tech, and orbital strike systems built for exactly that. Not subtle, not meant to be.",
       "released": false,
       "modrinth": "#",
       "curseforge": "#"
@@ -279,7 +279,7 @@
       "name": "Trappist",
       "color": "#97D802",
       "glow": "151, 216, 2",
-      "about": "Explore the famous TRAPPIST-1 planetary system, faithfully recreated with its seven fascinating worlds. Search for potentially habitable environments, study alien landscapes, and uncover the mysteries of one of the most celebrated planetary systems ever discovered.",
+      "about": "TRAPPIST-1, recreated properly, all seven planets. Go looking for the ones that might actually support life, or just wander the surfaces of one of the more famous systems we've found so far.",
       "released": false,
       "modrinth": "#",
       "curseforge": "#"
@@ -288,7 +288,7 @@
       "name": "Machine World",
       "color": "#D2D2DC",
       "glow": "210, 210, 220",
-      "about": "Engineer colossal megastructures unlike anything seen before. Construct Machine Worlds, Ring Worlds, Dyson Spheres, Star Lifters, and other monumental engineering projects while unlocking powerful new methods of energy production, automation, and interstellar industry. Turn entire planets into machines and harness the power of stars themselves.",
+      "about": "Build big, or don't bother. Ring worlds, Dyson spheres, star lifters, entire planets converted into machinery. New ways to generate power and automate everything once you've outgrown the basics.",
       "released": false,
       "modrinth": "#",
       "curseforge": "#"

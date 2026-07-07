@@ -1,15 +1,3 @@
-/*
-  Addon info panel. Clicking an orbiting planet (or the central Cosmos
-  icon) opens a modal panel themed in that addon's color.
-
-  Addon copy, store links, and release status live in the
-  <script type="application/json" id="addonData"> block in index.html —
-  edit that JSON to change any addon's name, color, glow, about text,
-  store links, or "released" flag (false greys out Modrinth/CurseForge
-  and turns the download button into a red "Unreleased" state). It's
-  read directly from the page (not fetched) so this works whether the
-  site is opened straight from disk or served over http.
-*/
 (function () {
   const dataEl = document.getElementById("addonData");
   const ADDON_DATA = dataEl ? JSON.parse(dataEl.textContent) : {};
@@ -40,26 +28,21 @@
     panel.style.setProperty("--panel-color", addon.color);
     panel.style.setProperty("--panel-glow", addon.glow);
 
-    modrinthEl.href = released ? (addon.modrinth || "#") : "#";
-    curseforgeEl.href = released ? (addon.curseforge || "#") : "#";
+    modrinthEl.href = released ? addon.modrinth || "#" : "#";
+    curseforgeEl.href = released ? addon.curseforge || "#" : "#";
     modrinthEl.classList.toggle("is-disabled", !released);
     curseforgeEl.classList.toggle("is-disabled", !released);
-    if (!released) {
-      modrinthEl.setAttribute("aria-disabled", "true");
-      curseforgeEl.setAttribute("aria-disabled", "true");
-    } else {
-      modrinthEl.removeAttribute("aria-disabled");
-      curseforgeEl.removeAttribute("aria-disabled");
-    }
 
-    downloadEl.href = released ? (addon.modrinth || "#") : "#";
+    [modrinthEl, curseforgeEl].forEach((el) => {
+      if (released) el.removeAttribute("aria-disabled");
+      else el.setAttribute("aria-disabled", "true");
+    });
+
+    downloadEl.href = released ? addon.modrinth || "#" : "#";
     downloadEl.textContent = released ? "Download" : "! Unreleased";
     downloadEl.classList.toggle("is-unreleased", !released);
-    if (!released) {
-      downloadEl.setAttribute("aria-disabled", "true");
-    } else {
-      downloadEl.removeAttribute("aria-disabled");
-    }
+    if (released) downloadEl.removeAttribute("aria-disabled");
+    else downloadEl.setAttribute("aria-disabled", "true");
 
     lastFocused = document.activeElement;
     backdrop.classList.add("is-open");
@@ -77,9 +60,7 @@
 
   [modrinthEl, curseforgeEl, downloadEl].forEach((el) => {
     el.addEventListener("click", (e) => {
-      if (el.getAttribute("aria-disabled") === "true") {
-        e.preventDefault();
-      }
+      if (el.getAttribute("aria-disabled") === "true") e.preventDefault();
     });
   });
 
@@ -88,10 +69,7 @@
     el.setAttribute("tabindex", "0");
     el.setAttribute("role", "button");
 
-    el.addEventListener("click", () => {
-      openPanel(el.dataset.addon);
-    });
-
+    el.addEventListener("click", () => openPanel(el.dataset.addon));
     el.addEventListener("keydown", (e) => {
       if (e.key === "Enter" || e.key === " ") {
         e.preventDefault();
@@ -106,8 +84,6 @@
   closeBtn.addEventListener("click", closePanel);
 
   document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape" && panel.classList.contains("is-open")) {
-      closePanel();
-    }
+    if (e.key === "Escape" && panel.classList.contains("is-open")) closePanel();
   });
 })();

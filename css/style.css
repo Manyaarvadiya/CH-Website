@@ -1,6 +1,3 @@
-/* ---------------------------------------
-   Tokens
---------------------------------------- */
 :root {
   --void:        #05060A;
   --panel:       #0D0F18;
@@ -35,9 +32,6 @@
   --spec-rec:    var(--plasma);
 }
 
-/* ---------------------------------------
-   Reset
---------------------------------------- */
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
 html { scroll-behavior: smooth; }
@@ -57,9 +51,6 @@ a {
 
 img { max-width: 100%; display: block; }
 
-/* ---------------------------------------
-   Starfield background canvas
---------------------------------------- */
 #starfield {
   position: fixed;
   top: 0;
@@ -74,9 +65,8 @@ img { max-width: 100%; display: block; }
   #starfield { display: none; }
 }
 
-/* ---------------------------------------
-   Header
---------------------------------------- */
+/* header */
+
 .site-header {
   position: relative;
   z-index: 10;
@@ -86,9 +76,6 @@ img { max-width: 100%; display: block; }
   padding: 28px 48px;
 }
 
-/* Hamburger menu (replaces the old brand mark) — pinned flush to
-   the very top-left corner of the page, independent of the
-   header's own padding. */
 .nav-menu {
   position: fixed;
   top: 0;
@@ -250,9 +237,8 @@ img { max-width: 100%; display: block; }
   color: var(--cyan) !important;
 }
 
-/* ---------------------------------------
-   Hero / Viewport
---------------------------------------- */
+/* hero */
+
 main {
   position: relative;
   z-index: 5;
@@ -276,9 +262,6 @@ main {
   margin-bottom: 88px;
 }
 
-/* Huge 3D title: layered text-shadow steps build the extruded "depth".
-   Colored to match the cosmos.png core glow, static — no hover state.
-   Flush at the very top of the hero, perfectly centered. */
 .hero-title-3d {
   width: 100%;
   margin: 0 auto;
@@ -318,9 +301,8 @@ main {
   font-weight: 700;
 }
 
-/* ---------------------------------------
-   Orrery: cosmos.png core with orbiting planets
---------------------------------------- */
+/* orrery */
+
 .orrery {
   --orrery-size: min(680px, 92vw);
   position: relative;
@@ -333,9 +315,6 @@ main {
   overflow: visible;
 }
 
-/* The central hero image — square, rounded corners. Sized directly
-   off --orrery-size (not just a % of the flex box) so it always
-   scales in lockstep with the planet icons below, on every device. */
 .hero-core {
   position: relative;
   z-index: 5;
@@ -375,7 +354,6 @@ main {
   transform: translate(-50%, calc(-50% - 98px));
 }
 
-/* Dashed orbit rings, nearest to farthest */
 .orbit-ring {
   position: absolute;
   top: 50%;
@@ -393,9 +371,6 @@ main {
 .orbit-ring--5 { width: 100%; height: 100%; }
 .orbit-ring--6 { width: 112%; height: 112%; }
 
-/* Each planet sits on its own orbit radius at a fixed angle (--angle),
-   set inline per-planet in the HTML. The wrapper rotates the whole
-   system slowly; the image counter-rotates so planets don't spin in place. */
 .planet {
   position: absolute;
   top: 50%;
@@ -438,12 +413,6 @@ main {
     drop-shadow(0 0 32px rgba(var(--glow), 0.5));
 }
 
-/* Short local motion-streak trailing directly behind each planet,
-   tangent to its orbit, pointing back along the direction of travel.
-   The parent .planet counter-rotates (rotate(angle)...rotate(-angle))
-   so its children stay visually upright and don't spin — that means
-   this streak needs its own animation to keep tracking the tangent
-   as the planet orbits, rather than inheriting the parent's motion. */
 .planet::before {
   content: "";
   position: absolute;
@@ -467,9 +436,6 @@ main {
   to   { transform: translate(-100%, -50%) rotate(calc(var(--angle) + 360deg - 90deg)); }
 }
 
-/* Name label tooltip, shown above each planet on hover. Positioned
-   independent of the planet's own rotation math since it's a sibling
-   of the img inside the same non-rotating .planet box. */
 .planet-label {
   position: absolute;
   top: 50%;
@@ -498,11 +464,6 @@ main {
   transform: translate(-50%, calc(-50% - 54px));
 }
 
-/* Distance order: spheromatic (nearest) -> machine_world (farthest).
-   Radius is a fixed fraction of the orrery's own size (min(680px, 92vw)),
-   matching the orbit-ring diameters above, so planets actually sit on
-   their rings instead of collapsing toward center. All icons share one
-   standard size so nothing looks undersized or soft at render time. */
 .planet--spheromatic     { --radius: calc(var(--orrery-size) * 0.23); --glow: var(--glow-spheromatic); }
 .planet--every-mans-sky  { --radius: calc(var(--orrery-size) * 0.31); --glow: var(--glow-every-mans-sky); }
 .planet--realio          { --radius: calc(var(--orrery-size) * 0.38); --glow: var(--glow-realio); }
@@ -515,8 +476,6 @@ main {
   to   { transform: translate(-50%, -50%) rotate(calc(var(--angle) + 360deg)) translateX(var(--radius)) rotate(calc((var(--angle) + 360deg) * -1)); }
 }
 
-/* Orbit trails: a faint arc swept behind each planet, same rotation
-   as the planet it belongs to so it always trails the right spot. */
 .trail {
   position: absolute;
   top: 50%;
@@ -583,9 +542,8 @@ main {
   }
 }
 
-/* ---------------------------------------
-   Features
---------------------------------------- */
+/* features */
+
 .features {
   padding: 32px 48px 96px;
   max-width: 1080px;
@@ -631,9 +589,8 @@ main {
   color: var(--text-dim);
 }
 
-/* ---------------------------------------
-   Specs — Minecraft-style requirement tiers
---------------------------------------- */
+/* specs */
+
 .specs {
   padding: 32px 48px 96px;
   max-width: 1080px;
@@ -719,9 +676,8 @@ main {
   font-weight: 700;
 }
 
-/* ---------------------------------------
-   Footer
---------------------------------------- */
+/* footer */
+
 .site-footer {
   position: relative;
   z-index: 5;
@@ -732,9 +688,8 @@ main {
   border-top: 1px solid var(--panel-line);
 }
 
-/* ---------------------------------------
-   Addon info panel — opens on planet click
---------------------------------------- */
+/* addon panel */
+
 .addon-backdrop {
   position: fixed;
   inset: 0;
@@ -910,9 +865,6 @@ main {
   }
 }
 
-/* ---------------------------------------
-   Responsive
---------------------------------------- */
 @media (max-width: 640px) {
   .site-header {
     padding: 20px 24px;
@@ -927,12 +879,8 @@ main {
   }
 }
 
-/* ---------------------------------------
-   News page
---------------------------------------- */
-/* Fixed flush to the top-left corner on every device, matching the
-   hamburger menu's treatment on the homepage — independent of the
-   header's own box so it can never drift with page padding/scroll. */
+/* news page */
+
 .news-header {
   position: fixed;
   top: 0;
@@ -1056,9 +1004,8 @@ main {
   .news-dot { animation: none; }
 }
 
-/* ---------------------------------------
-   Credits page
---------------------------------------- */
+/* credits page */
+
 .credits-main {
   position: relative;
   z-index: 5;
@@ -1097,7 +1044,6 @@ main {
   margin-bottom: 14px;
 }
 
-/* Developer spotlight */
 .credits-developer {
   display: flex;
   flex-direction: column;
@@ -1132,10 +1078,6 @@ main {
   letter-spacing: 0.05em;
 }
 
-/* Grand Contributors — displayed like a ranking podium: the
-   center avatar (highest rank) is largest, its two immediate
-   neighbors are mid-sized, and the outer two are smallest, all
-   sitting on the same baseline. */
 .grand-row {
   display: flex;
   align-items: flex-end;
@@ -1216,7 +1158,6 @@ main {
   font-size: 13px;
 }
 
-/* Technical Artists / Contributors / Inspirers — equal-sized rows */
 .credits-row {
   display: flex;
   justify-content: center;
@@ -1257,10 +1198,6 @@ main {
   color: var(--text-dim);
 }
 
-/* Mobile credits: the podium sizing in .grand-row and the wide
-   flex rows in .credits-row both depend on generous horizontal
-   space to read correctly. Below that space, replace them with a
-   uniform grid — every avatar the same size, simply lined up. */
 @media (max-width: 640px) {
   .grand-row {
     display: grid;
@@ -1317,9 +1254,8 @@ main {
   }
 }
 
-/* ---------------------------------------
-   Gallery page
---------------------------------------- */
+/* gallery page */
+
 .gallery-main {
   position: relative;
   z-index: 5;
@@ -1447,7 +1383,6 @@ main {
     0 0 26px rgba(var(--row-glow), 0.5);
 }
 
-/* Lightbox */
 .gallery-backdrop {
   position: fixed;
   inset: 0;

@@ -1,29 +1,21 @@
-/*
-  Cheap ambient starfield for the background canvas.
-  No dependencies. Pauses when tab is hidden. Respects reduced-motion.
-  Occasionally spawns a shooting star that streaks across and fades.
-*/
 (function () {
   const canvas = document.getElementById("starfield");
   if (!canvas) return;
 
-  const prefersReducedMotion = window.matchMedia(
-    "(prefers-reduced-motion: reduce)"
-  ).matches;
-  if (prefersReducedMotion) return;
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
   const ctx = canvas.getContext("2d");
   let width, height, stars;
   let running = true;
-
   let shootingStars = [];
   let nextShootingStarAt = 0;
+  let lastTime = null;
 
   function resize() {
     width = canvas.width = window.innerWidth;
     height = canvas.height = window.innerHeight;
     const count = Math.floor((width * height) / 6000);
-    stars = Array.from({ length: count }, () => createStar());
+    stars = Array.from({ length: count }, createStar);
   }
 
   function createStar() {
@@ -38,28 +30,25 @@
   }
 
   function scheduleNextShootingStar(time) {
-    // Roughly once every 1-3 seconds.
     nextShootingStarAt = time + 1000 + Math.random() * 2000;
   }
 
   function spawnShootingStar() {
-    const angle = (Math.PI / 180) * (20 + Math.random() * 40); // 20-60deg downward
-    const speed = 700 + Math.random() * 500; // px/sec
-    const startX = Math.random() * width * 0.7;
-    const startY = Math.random() * height * 0.35;
+    const angle = (Math.PI / 180) * (20 + Math.random() * 40);
+    const speed = 700 + Math.random() * 500;
 
     shootingStars.push({
-      x: startX,
-      y: startY,
+      x: Math.random() * width * 0.7,
+      y: Math.random() * height * 0.35,
       vx: Math.cos(angle) * speed,
       vy: Math.sin(angle) * speed,
       len: 90 + Math.random() * 70,
       life: 0,
-      maxLife: 0.9 + Math.random() * 0.4, // seconds
+      maxLife: 0.9 + Math.random() * 0.4,
     });
   }
 
-  function updateAndDrawShootingStar(star, dt) {
+  function drawShootingStar(star, dt) {
     star.life += dt;
     star.x += star.vx * dt;
     star.y += star.vy * dt;
@@ -69,19 +58,12 @@
       return false;
     }
 
-    const fade = t < 0.15 ? t / 0.15 : 1 - (t - 0.15) / 0.85;
-    const alpha = Math.max(0, Math.min(1, fade));
-
+    const alpha = Math.max(0, Math.min(1, t < 0.15 ? t / 0.15 : 1 - (t - 0.15) / 0.85));
     const mag = Math.hypot(star.vx, star.vy) || 1;
     const dx = (star.vx / mag) * star.len;
     const dy = (star.vy / mag) * star.len;
 
-    const gradient = ctx.createLinearGradient(
-      star.x,
-      star.y,
-      star.x - dx,
-      star.y - dy
-    );
+    const gradient = ctx.createLinearGradient(star.x, star.y, star.x - dx, star.y - dy);
     gradient.addColorStop(0, `rgba(232, 230, 224, ${alpha})`);
     gradient.addColorStop(1, "rgba(232, 230, 224, 0)");
 
@@ -103,8 +85,6 @@
     return true;
   }
 
-  let lastTime = null;
-
   function draw(time) {
     if (!running) return;
 
@@ -118,9 +98,7 @@
     ctx.clearRect(0, 0, width, height);
 
     for (const star of stars) {
-      const alpha =
-        star.baseAlpha +
-        Math.sin(time * star.twinkleSpeed + star.phase) * 0.15;
+      const alpha = star.baseAlpha + Math.sin(time * star.twinkleSpeed + star.phase) * 0.15;
       ctx.beginPath();
       ctx.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
       ctx.fillStyle = `rgba(232, 230, 224, ${Math.max(0, alpha)})`;
@@ -131,9 +109,7 @@
       spawnShootingStar();
       scheduleNextShootingStar(time);
     }
-    shootingStars = shootingStars.filter((star) =>
-      updateAndDrawShootingStar(star, dt)
-    );
+    shootingStars = shootingStars.filter((star) => drawShootingStar(star, dt));
 
     requestAnimationFrame(draw);
   }
